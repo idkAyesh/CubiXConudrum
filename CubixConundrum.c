@@ -4,8 +4,8 @@
 #include <stdlib.h>
 #include <time.h>
 
-int global_a = 0;//user input
-int randomnumbers[3];// to compare the user input with displayed shapes
+int global_a = 0;     // user input
+int randomnumbers[3]; // to compare the user input with displayed shapes
 int score = 0;
 
 // void move(board);
@@ -197,35 +197,42 @@ int selectedbox()
         break;
     }
 }
-// prints the grid!!
 void printBoard(char board[9][9])
 {
     system("cls");
+    printf("                                  \33[0;32m"); // Start green color with added padding for top border
+    for (int i = 0; i < 9; i++) printf("-----|");
+    printf("\33[0m\n"); // End green color
+
     for (int i = 0; i < 9; i++)
     {
+        printf("                                 \33[0;32m|\33[0m"); // Green left border with added padding
         for (int j = 0; j < 9; j++)
         {
-            if (j == 2 || j == 5 || j == 8)
-                printf("\33[96m  %c  |\33[0m", board[i][j]);
+            if (j == 2 || j == 5)
+                printf("  %c  \33[96m|\33[0m", board[i][j]); // Blue vertical line for 3x3 grid
+            else if (j == 8)
+                printf("  %c  \33[0;32m|\33[0m", board[i][j]); // Green vertical line for right border
             else
                 printf("  %c  |", board[i][j]);
-
-            if (j == 8)
-            {
-                printf("\n");
-                for (int k = 0; k < 9; k++)
-                {
-                    if (i == 2 || i == 5 || i == 8)
-                        printf("\33[96m-----|\33[0m");
-                    else if (k == 2 || k == 5 || k == 8)
-                        printf("-----\33[96m|\33[0m");
-                    else
-                        printf("-----|");
-                }
-            }
+        }
+        printf("\n                                 \33[0;32m|\33[0m"); // Green left border with added padding
+        for (int k = 0; k < 9; k++)
+        {
+            if (i == 2 || i == 5)
+                printf("\33[96m-----|\33[0m"); // Blue horizontal line for 3x3 grid
+            else if (k == 2 || k == 5)
+                printf("-----\33[96m|\33[0m"); // Blue vertical line at end of 3x3 grid
+            else if (k == 8)
+                printf("-----\33[0;32m|\33[0m"); // Green vertical line for right border
+            else
+                printf("-----|");
         }
         printf("\n");
     }
+    printf("                                  \33[0;32m"); // Start green color with added padding for bottom border
+    for (int i = 0; i < 9; i++) printf("-----|");
+    printf("\33[0m\n"); // End green color
 }
 int checkgameover(char board[9][9])
 {
@@ -1473,7 +1480,7 @@ int main()
     {
         for (int i = 0; i < 3; i++)
         {
-          rshape();
+            rshape();
         }
 
         selectedbox();
