@@ -201,7 +201,8 @@ void printBoard(char board[9][9])
 {
     system("cls");
     printf("                                  \33[0;32m"); // Start green color with added padding for top border
-    for (int i = 0; i < 9; i++) printf("-----|");
+    for (int i = 0; i < 9; i++)
+        printf("-----|");
     printf("\33[0m\n"); // End green color
 
     for (int i = 0; i < 9; i++)
@@ -231,7 +232,8 @@ void printBoard(char board[9][9])
         printf("\n");
     }
     printf("                                  \33[0;32m"); // Start green color with added padding for bottom border
-    for (int i = 0; i < 9; i++) printf("-----|");
+    for (int i = 0; i < 9; i++)
+        printf("-----|");
     printf("\33[0m\n"); // End green color
 }
 int checkgameover(char board[9][9])
