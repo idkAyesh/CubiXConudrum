@@ -191,24 +191,36 @@ void randshp()
             box10();
             break;
         case 11:
-            printf("10\n");
+            printf("11\n");
             box11();
             break;
         case 12:
-            printf("10\n");
-            box11();
+            printf("12\n");
+            box12();
             break;
         case 13:
-            printf("10\n");
-            box11();
+            printf("13\n");
+            box13();
             break;
         case 14:
-            printf("10\n");
+            printf("14\n");
             box14();
             break;
         case 15:
-            printf("10\n");
+            printf("15\n");
             box15();
+            break;
+        case 16:
+            printf("16\n");
+            box16();
+            break;
+        case 17:
+            printf("17\n");
+            box17();
+            break;
+        case 18:
+            printf("18\n");
+            box18();
             break;
         default:
             break;
@@ -302,6 +314,18 @@ int selectedbox()
         case 15:
             printf("You selected %d box\n", global_a);
             box15();
+            break;
+        case 16:
+            printf("You selected %d box\n", global_a);
+            box16();
+            break;
+        case 17:
+            printf("You selected %d box\n", global_a);
+            box17();
+            break;
+        case 18:
+            printf("You selected %d box\n", global_a);
+            box18();
             break;
         default:
             printf("Invalid selection\n");
@@ -1832,35 +1856,35 @@ void move(char board[9][9])
     }
     else if (global_a == 11)
     {
-        initializebox10(board);
+        initializebox11(board);
     }
     else if (global_a == 12)
     {
-        initializebox10(board);
+        initializebox12(board);
     }
     else if (global_a == 13)
     {
-        initializebox10(board);
+        initializebox13(board);
     }
     else if (global_a == 14)
     {
-        initializebox10(board);
+        initializebox14(board);
     }
     else if (global_a == 15)
     {
-        initializebox10(board);
+        initializebox15(board);
     }
     else if (global_a == 16)
     {
-        initializebox10(board);
+        initializebox16(board);
     }
     else if (global_a == 17)
     {
-        initializebox10(board);
+        initializebox17(board);
     }
     else if (global_a == 18)
     {
-        initializebox10(board);
+        initializebox18(board);
     }
 }
 int main()
