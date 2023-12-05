@@ -80,66 +80,87 @@ void box10()
     printf("      \n\n");
 }
 
-int rnum()
+void rnum()
 {
-    int number;
-    number = rand() % 11;
-    return number;
-}
-int randshp()
-{
-    switch (rnum())
+    int i = 0;
+    while (i < 3)
     {
-    case 1:
-        printf("1\n");
-        box1();
-        break;
-    case 2:
-        printf("2\n");
-        box2();
-        break;
-    case 3:
-        printf("3\n");
-        box3();
-        break;
-    case 4:
-        printf("4\n");
-        box4();
-        break;
-    case 5:
-        printf("5\n");
-        box5();
-        break;
-    case 6:
-        printf("6\n");
-        box6();
-        break;
-    case 7:
-        printf("7\n");
-        box7();
-        break;
-    case 8:
-        printf("8\n");
-        box8();
-        break;
-    case 9:
-        printf("9\n");
-        box9();
-        break;
-    case 10:
-        printf("10\n");
-        box10();
-        break;
-
-    default:
-        break;
+        int temp = rand() % 10 + 1;
+        int j;
+        for (j = 0; j < i; j++)
+        {
+            if (randomnumbers[j] == temp)
+                break;
+        }
+        if (j == i)
+        {
+            randomnumbers[i] = temp;
+            i++;
+        }
     }
 }
-void rshape()
+void randshp()
 {
-    randshp();
+    for (int i = 0; i < 3; i++)
+    {
+        switch (randomnumbers[i])
+        {
+        case 1:
+            printf("1\n");
+            box1();
+            break;
+        case 2:
+            printf("2\n");
+            box2();
+            break;
+        case 3:
+            printf("3\n");
+            box3();
+            break;
+        case 4:
+            printf("4\n");
+            box4();
+            break;
+        case 5:
+            printf("5\n");
+            box5();
+            break;
+        case 6:
+            printf("6\n");
+            box6();
+            break;
+        case 7:
+            printf("7\n");
+            box7();
+            break;
+        case 8:
+            printf("8\n");
+            box8();
+            break;
+        case 9:
+            printf("9\n");
+            box9();
+            break;
+        case 10:
+            printf("10\n");
+            box10();
+            break;
+        default:
+            break;
+        }
+    }
 }
-
+int IsBoxPresent(int global_a)
+{
+    for (int i = 0; i < 3; i++)
+    {
+        if (global_a == randomnumbers[i])
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
 int selectedbox()
 {
     int a;
@@ -147,54 +168,60 @@ int selectedbox()
     printf("Enter the no of the box you want to select: ");
     scanf("%d", &a);
     global_a = a;
-
-    system("cls");
-
-    switch (global_a)
+    if (!IsBoxPresent(global_a))
     {
-    case 1:
-        printf("You selected %d box\n", global_a);
-        box1();
-        break;
-    case 2:
-        printf("You selected %d box\n", global_a);
-        box2();
-        break;
-    case 3:
-        printf("You selected %d box\n", global_a);
-        box3();
-        break;
-    case 4:
-        printf("You selected %d box\n", global_a);
-        box4();
-        break;
-    case 5:
-        printf("You selected %d box\n", global_a);
-        box5();
-        break;
-    case 6:
-        printf("You selected %d box\n", global_a);
-        box6();
-        break;
-    case 7:
-        printf("You selected %d box\n", global_a);
-        box7();
-        break;
-    case 8:
-        printf("You selected %d box\n", global_a);
-        box8();
-        break;
-    case 9:
-        printf("You selected %d box\n", global_a);
-        box9();
-        break;
-    case 10:
-        printf("You selected %d box\n", global_a);
-        box10();
-        break;
-    default:
-        printf("Invalid selection\n");
-        break;
+        printf("INVALID INPUT");
+        selectedbox();
+    }
+    system("cls");
+    if (IsBoxPresent(global_a))
+    {
+        switch (global_a)
+        {
+        case 1:
+            printf("You selected %d box\n", global_a);
+            box1();
+            break;
+        case 2:
+            printf("You selected %d box\n", global_a);
+            box2();
+            break;
+        case 3:
+            printf("You selected %d box\n", global_a);
+            box3();
+            break;
+        case 4:
+            printf("You selected %d box\n", global_a);
+            box4();
+            break;
+        case 5:
+            printf("You selected %d box\n", global_a);
+            box5();
+            break;
+        case 6:
+            printf("You selected %d box\n", global_a);
+            box6();
+            break;
+        case 7:
+            printf("You selected %d box\n", global_a);
+            box7();
+            break;
+        case 8:
+            printf("You selected %d box\n", global_a);
+            box8();
+            break;
+        case 9:
+            printf("You selected %d box\n", global_a);
+            box9();
+            break;
+        case 10:
+            printf("You selected %d box\n", global_a);
+            box10();
+            break;
+        default:
+            printf("Invalid selection\n");
+            break;
+        }
     }
 }
 void printBoard(char board[9][9])
@@ -265,6 +292,7 @@ int rowcheck(char board[9][9])
     }
     return 0;
 }
+
 int colcheck(char board[9][9])
 {
     int stars;
@@ -350,6 +378,7 @@ void initializebox1(char board[9][9])
                     board[i][j] = ' ';
                 }
             }
+            score += 24;
         }
 
         if (rowcheck(board) == 0 || colcheck(board) == 0)
@@ -472,6 +501,7 @@ void initializebox2(char board[9][9])
                     board[i][j] = ' ';
                 }
             }
+            score += 24;
         }
         if (rowcheck(board) == 0 || colcheck(board) == 0)
         {
@@ -597,6 +627,7 @@ void initializebox3(char board[9][9])
                     board[i][j] = ' ';
                 }
             }
+            score += 24;
         }
         if (rowcheck(board) == 0 || colcheck(board) == 0)
         {
@@ -710,6 +741,7 @@ void initializebox4(char board[9][9])
                     board[i][j] = ' ';
                 }
             }
+            score += 24;
         }
         if (rowcheck(board) == 0 || colcheck(board) == 0)
         {
@@ -816,6 +848,7 @@ void initializebox5(char board[9][9])
                     board[i][j] = ' ';
                 }
             }
+            score += 24;
         }
         if (rowcheck(board) == 0 || colcheck(board) == 0)
         {
@@ -921,6 +954,7 @@ void initializebox6(char board[9][9])
                     board[i][j] = ' ';
                 }
             }
+            score += 24;
         }
         if (rowcheck(board) == 0 || colcheck(board) == 0)
         {
@@ -1030,6 +1064,7 @@ void initializebox7(char board[9][9])
                     board[i][j] = ' ';
                 }
             }
+            score += 24;
         }
         if (rowcheck(board) == 0 || colcheck(board) == 0)
         {
@@ -1139,6 +1174,7 @@ void initializebox8(char board[9][9])
                     board[i][j] = ' ';
                 }
             }
+            score += 24;
         }
         if (rowcheck(board) == 0 || colcheck(board) == 0)
         {
@@ -1237,6 +1273,7 @@ void initializebox9(char board[9][9])
                     board[i][j] = ' ';
                 }
             }
+            score += 24;
         }
         if (rowcheck(board) == 0 || colcheck(board) == 0)
         {
@@ -1346,6 +1383,7 @@ void initializebox10(char board[9][9])
                     board[i][j] = ' ';
                 }
             }
+            score += 24;
         }
         if (rowcheck(board) == 0 || colcheck(board) == 0)
         {
@@ -1464,6 +1502,21 @@ void move(char board[9][9])
 }
 int main()
 {
+    printf("GAME INSTRUCTIONS\n\n");
+    printf("The random 3 shapes of stars will appear select any one of them\n");
+    printf("Now move the arrow keys the board/grid will be displayed and the shape you selected can be moved using arrow keys (they will always start from the top-left corner\n");
+    printf("Please be patient with the arrow keys donot hold the arrow key\n");
+    printf("Now find the place where you want to place the shape and press space bar\n");
+    printf("The game will end once there is no place for the new shape (in the top left corner)\n\n");
+
+    printf("The score will be added once you placed the stars in the grid according to the no of stars in the shape if the shape has 5 stars the score will be added score + 5\n");
+    printf("Moreover, if you complete the grid's row or column the score will be added: score + 18 and if you  complete any of the 3*3 blue highlighted grids the score will be: score + 18");
+    char start;
+     printf("press enter key to continue");
+     scanf(" %c", &start);
+
+    
+
     srand(time(NULL));
 
     char board[9][9] = {
@@ -1480,13 +1533,9 @@ int main()
     while (1)
 
     {
-        for (int i = 0; i < 3; i++)
-        {
-            rshape();
-        }
-
+        rnum();
+        randshp();
         selectedbox();
-
         printf("\n\n\n\n\n\n\n\n\n\n\n");
         move(board);
     }
