@@ -263,15 +263,14 @@ void printBoard(char board[9][9])
         printf("-----|");
     printf("\33[0m\n"); // End green color
 }
-int checkgameover(char board[9][9])
+int checkgameover(char board[9][9]) // if the top right corner is full game over!
 {
-    if (board[0][0] == '*' || board[0][1] == '*' || board[0][2] == '*' || board[1][0] == '*' || board[2][0] == '*')
+    if (board[0][0] == '*' || board[0][1] == '*' || board[0][2] == '*' || board[1][0] == '*' || board[1][2] == '*' || board[2][2] == '*')
     {
         return 1;
     }
     return 0;
 }
-
 int rowcheck(char board[9][9])
 {
     int stars;
@@ -292,7 +291,6 @@ int rowcheck(char board[9][9])
     }
     return 0;
 }
-
 int colcheck(char board[9][9])
 {
     int stars;
@@ -317,11 +315,12 @@ int colcheck(char board[9][9])
 int boxindexes[2]; // global array to store the base index of the boxcheck function
 int boxcheck(char board[9][9])
 {
+    int stars;
     for (int i = 0; i <= 6; i += 3)
     {
         for (int j = 0; j <= 6; j += 3)
         {
-            int stars = 0;
+            stars = 0;
             for (int k = i; k < i + 3; k++)
             {
                 for (int l = j; l < j + 3; l++)
@@ -342,56 +341,61 @@ int boxcheck(char board[9][9])
     }
     return 0;
 }
+void updatethegrid(char board[9][9])
+{
+    int row_index_full_of_stars = rowcheck(board);
+
+    if (row_index_full_of_stars != 0)
+    {
+        for (int j = 0; j < 9; j++)
+        {
+            board[row_index_full_of_stars][j] = ' ';
+        }
+        score += 18;
+    }
+
+    int col_index_full_of_stars = colcheck(board);
+    if (col_index_full_of_stars != 0)
+    {
+
+        for (int i = 0; i < 9; i++)
+        {
+            board[i][col_index_full_of_stars] = ' ';
+        }
+        score += 18;
+    }
+    if (boxcheck(board) != 0)
+    {
+        for (int i = boxindexes[0]; i < boxindexes[0] + 3; i++)
+        {
+            for (int j = boxindexes[1]; j < boxindexes[1] + 3; j++)
+            {
+                board[i][j] = ' ';
+            }
+        }
+        score += 24;
+    }
+    else
+    {
+        score += 4;
+    }
+
+    if (checkgameover(board))
+    {
+        system("cls");
+        printf("Game over!");
+        printf("Your score : (%d)", score);
+        exit(0);
+    }
+}
 
 void initializebox1(char board[9][9])
 {
     int x = 0, y = 0;
     if (global_a == 1)
     {
-        int row_index_full_of_stars = rowcheck(board);
+        updatethegrid(board);
 
-        if (row_index_full_of_stars != 0)
-        {
-            for (int j = 0; j < 9; j++)
-            {
-                board[row_index_full_of_stars][j] = ' ';
-            }
-            score += 18;
-        }
-        int col_index_full_of_stars = colcheck(board);
-        if (col_index_full_of_stars != 0)
-        {
-
-            for (int i = 0; i < 9; i++)
-            {
-                board[i][col_index_full_of_stars] = ' ';
-            }
-            score += 18;
-        }
-
-        if (boxcheck(board) != 0)
-        {
-            for (int i = boxindexes[0]; i < boxindexes[0] + 3; i++)
-            {
-                for (int j = boxindexes[1]; j < boxindexes[1] + 3; j++)
-                {
-                    board[i][j] = ' ';
-                }
-            }
-            score += 24;
-        }
-
-        if (rowcheck(board) == 0 || colcheck(board) == 0)
-        {
-            score += 4;
-        }
-        if (checkgameover(board))
-        {
-            system("cls");
-            printf("Game over!");
-            printf("Your score : (%d)", score);
-            exit(0);
-        }
         // Check if the initial position is free
         if (board[y][x] == ' ' && board[y][x + 1] == ' ' && board[y + 1][x] == ' ' && board[y + 2][x] == ' ' && board[y + 2][x + 1] == ' ')
         {
@@ -474,56 +478,19 @@ void initializebox2(char board[9][9])
     int x = 0, y = 0;
     if (global_a == 2)
     {
-        int row_index_full_of_stars = rowcheck(board);
-        if (row_index_full_of_stars != 0)
-        {
-            for (int j = 0; j < 9; j++)
-            {
-                board[row_index_full_of_stars][j] = ' ';
-            }
-            score += 18;
-        }
-        int col_index_full_of_stars = colcheck(board);
-        if (col_index_full_of_stars != 0)
-        {
-            for (int i = 0; i < 9; i++)
-            {
-                board[i][col_index_full_of_stars] = ' ';
-            }
-            score += 18;
-        }
-        if (boxcheck(board) != 0)
-        {
-            for (int i = boxindexes[0]; i < boxindexes[0] + 3; i++)
-            {
-                for (int j = boxindexes[1]; j < boxindexes[1] + 3; j++)
-                {
-                    board[i][j] = ' ';
-                }
-            }
-            score += 24;
-        }
-        if (rowcheck(board) == 0 || colcheck(board) == 0)
-        {
-            score += 4;
-        }
+        updatethegrid(board);
         if (checkgameover(board))
-        {
-            system("cls");
-            printf("Game over!");
-            printf("Your score : (%d)", score);
-
-        } // Check if the initial position is free
-        if (board[y][x] == ' ' && board[y][x + 1] == ' ' && board[y + 1][x] == ' ' && board[y + 1][x + 1] == ' ' && board[y + 1][x + 2] == ' ')
-        {
-            // Initialize the pattern
-            board[y][x] = '*';
-            board[y][x + 1] = ' ';
-            board[y][x + 2] = '*';
-            board[y + 1][x] = '*';
-            board[y + 1][x + 1] = '*';
-            board[y + 1][x + 2] = '*';
-        }
+            // Check if the initial position is free
+            if (board[y][x] == ' ' && board[y][x + 1] == ' ' && board[y + 1][x] == ' ' && board[y + 1][x + 1] == ' ' && board[y + 1][x + 2] == ' ')
+            {
+                // Initialize the pattern
+                board[y][x] = '*';
+                board[y][x + 1] = ' ';
+                board[y][x + 2] = '*';
+                board[y + 1][x] = '*';
+                board[y + 1][x + 1] = '*';
+                board[y + 1][x + 2] = '*';
+            }
         int space = 0;
         printBoard(board); // Call printBoard initially
         while (space == 0)
@@ -600,45 +567,7 @@ void initializebox3(char board[9][9])
     int x = 0, y = 0;
     if (global_a == 3)
     {
-        int row_index_full_of_stars = rowcheck(board);
-        if (row_index_full_of_stars != 0)
-        {
-            for (int j = 0; j < 9; j++)
-            {
-                board[row_index_full_of_stars][j] = ' ';
-            }
-            score += 18;
-        }
-        int col_index_full_of_stars = colcheck(board);
-        if (col_index_full_of_stars != 0)
-        {
-            for (int i = 0; i < 9; i++)
-            {
-                board[i][col_index_full_of_stars] = ' ';
-            }
-            score += 18;
-        }
-        if (boxcheck(board) != 0)
-        {
-            for (int i = boxindexes[0]; i < boxindexes[0] + 3; i++)
-            {
-                for (int j = boxindexes[1]; j < boxindexes[1] + 3; j++)
-                {
-                    board[i][j] = ' ';
-                }
-            }
-            score += 24;
-        }
-        if (rowcheck(board) == 0 || colcheck(board) == 0)
-        {
-            score += 4;
-        }
-        if (checkgameover(board))
-        {
-            system("cls");
-            printf("Game over!");
-            printf("Your score : (%d)", score);
-        }
+        updatethegrid(board);
         if (board[y][x] == ' ' && board[y + 1][x] == ' ' && board[y + 2][x] == ' ' && board[y + 2][x + 1] == ' ' && board[y + 2][x + 2] == ' ')
         {
             board[y][x] = '*';
@@ -714,45 +643,7 @@ void initializebox4(char board[9][9])
     int x = 0, y = 0;
     if (global_a == 4)
     {
-        int row_index_full_of_stars = rowcheck(board);
-        if (row_index_full_of_stars != 0)
-        {
-            for (int j = 0; j < 9; j++)
-            {
-                board[row_index_full_of_stars][j] = ' ';
-            }
-            score += 18;
-        }
-        int col_index_full_of_stars = colcheck(board);
-        if (col_index_full_of_stars != 0)
-        {
-            for (int i = 0; i < 9; i++)
-            {
-                board[i][col_index_full_of_stars] = ' ';
-            }
-            score += 18;
-        }
-        if (boxcheck(board) != 0)
-        {
-            for (int i = boxindexes[0]; i < boxindexes[0] + 3; i++)
-            {
-                for (int j = boxindexes[1]; j < boxindexes[1] + 3; j++)
-                {
-                    board[i][j] = ' ';
-                }
-            }
-            score += 24;
-        }
-        if (rowcheck(board) == 0 || colcheck(board) == 0)
-        {
-            score += 4;
-        }
-        if (checkgameover(board))
-        {
-            system("cls");
-            printf("Game over!");
-            printf("Your score : (%d)", score);
-        }
+        updatethegrid(board);
         if (board[y][x + 1] == ' ' && board[y + 1][x] == ' ' && board[y + 1][x + 1] == ' ')
         {
             board[y][x + 1] = '*';
@@ -821,45 +712,8 @@ void initializebox5(char board[9][9])
     int x = 0, y = 0;
     if (global_a == 5)
     {
-        int row_index_full_of_stars = rowcheck(board);
-        if (row_index_full_of_stars != 0)
-        {
-            for (int j = 0; j < 9; j++)
-            {
-                board[row_index_full_of_stars][j] = ' ';
-            }
-            score += 18;
-        }
-        int col_index_full_of_stars = colcheck(board);
-        if (col_index_full_of_stars != 0)
-        {
-            for (int i = 0; i < 9; i++)
-            {
-                board[i][col_index_full_of_stars] = ' ';
-            }
-            score += 18;
-        }
-        if (boxcheck(board) != 0)
-        {
-            for (int i = boxindexes[0]; i < boxindexes[0] + 3; i++)
-            {
-                for (int j = boxindexes[1]; j < boxindexes[1] + 3; j++)
-                {
-                    board[i][j] = ' ';
-                }
-            }
-            score += 24;
-        }
-        if (rowcheck(board) == 0 || colcheck(board) == 0)
-        {
-            score += 4;
-        }
-        if (checkgameover(board))
-        {
-            system("cls");
-            printf("Game over!");
-            printf("Your score : (%d)", score);
-        }
+        updatethegrid(board);
+
         if (board[y][x] == ' ' && board[y][x + 1] == ' ' && board[y + 1][x + 1] == ' ')
         {
             board[y][x] = '*';
@@ -927,49 +781,7 @@ void initializebox6(char board[9][9])
     int x = 0, y = 0;
     if (global_a == 6)
     {
-        int row_index_full_of_stars = rowcheck(board);
-        if (row_index_full_of_stars != 0)
-        {
-            for (int j = 0; j < 9; j++)
-            {
-                board[row_index_full_of_stars][j] = ' ';
-            }
-            score += 18;
-        }
-        int col_index_full_of_stars = colcheck(board);
-        if (col_index_full_of_stars != 0)
-        {
-            for (int i = 0; i < 9; i++)
-            {
-                board[i][col_index_full_of_stars] = ' ';
-            }
-            score += 18;
-        }
-        if (boxcheck(board) != 0)
-        {
-            for (int i = boxindexes[0]; i < boxindexes[0] + 3; i++)
-            {
-                for (int j = boxindexes[1]; j < boxindexes[1] + 3; j++)
-                {
-                    board[i][j] = ' ';
-                }
-            }
-            score += 24;
-        }
-        if (rowcheck(board) == 0 || colcheck(board) == 0)
-        {
-            score += 4;
-        }
-        if (checkgameover(board))
-        {
-            system("cls");
-            printf("Game over!");
-            printf("Your score : (%d)", score);
-        }
-        if (rowcheck(board) == 0 || colcheck(board) == 0)
-        {
-            score += 4;
-        }
+        updatethegrid(board);
         if (board[y][x] == ' ' && board[y + 1][x] == ' ' && board[y + 2][x] == ' ')
         {
             board[y][x] = '*';
@@ -1037,45 +849,8 @@ void initializebox7(char board[9][9])
     int x = 0, y = 0;
     if (global_a == 7)
     {
-        int row_index_full_of_stars = rowcheck(board);
-        if (row_index_full_of_stars != 0)
-        {
-            for (int j = 0; j < 9; j++)
-            {
-                board[row_index_full_of_stars][j] = ' ';
-            }
-            score += 18;
-        }
-        int col_index_full_of_stars = colcheck(board);
-        if (col_index_full_of_stars != 0)
-        {
-            for (int i = 0; i < 9; i++)
-            {
-                board[i][col_index_full_of_stars] = ' ';
-            }
-            score += 18;
-        }
-        if (boxcheck(board) != 0)
-        {
-            for (int i = boxindexes[0]; i < boxindexes[0] + 3; i++)
-            {
-                for (int j = boxindexes[1]; j < boxindexes[1] + 3; j++)
-                {
-                    board[i][j] = ' ';
-                }
-            }
-            score += 24;
-        }
-        if (rowcheck(board) == 0 || colcheck(board) == 0)
-        {
-            score += 4;
-        }
-        if (checkgameover(board))
-        {
-            system("cls");
-            printf("Game over!");
-            printf("Your score : (%d)", score);
-        }
+        updatethegrid(board);
+
         if (board[y][x] == ' ' && board[y + 1][x] == ' ' && board[y + 2][x] == ' ' && board[y + 3][x] == ' ')
         {
             board[y][x] = '*';
@@ -1147,45 +922,7 @@ void initializebox8(char board[9][9])
     int x = 0, y = 0;
     if (global_a == 8)
     {
-        int row_index_full_of_stars = rowcheck(board);
-        if (row_index_full_of_stars != 0)
-        {
-            for (int j = 0; j < 9; j++)
-            {
-                board[row_index_full_of_stars][j] = ' ';
-            }
-            score += 18;
-        }
-        int col_index_full_of_stars = colcheck(board);
-        if (col_index_full_of_stars != 0)
-        {
-            for (int i = 0; i < 9; i++)
-            {
-                board[i][col_index_full_of_stars] = ' ';
-            }
-            score += 18;
-        }
-        if (boxcheck(board) != 0)
-        {
-            for (int i = boxindexes[0]; i < boxindexes[0] + 3; i++)
-            {
-                for (int j = boxindexes[1]; j < boxindexes[1] + 3; j++)
-                {
-                    board[i][j] = ' ';
-                }
-            }
-            score += 24;
-        }
-        if (rowcheck(board) == 0 || colcheck(board) == 0)
-        {
-            score += 4;
-        }
-        if (checkgameover(board))
-        {
-            system("cls");
-            printf("Game over!");
-            printf("Your score : (%d)", score);
-        }
+        updatethegrid(board);
 
         if (board[y][x] == ' ')
         {
@@ -1246,45 +983,7 @@ void initializebox9(char board[9][9])
     int x = 0, y = 0;
     if (global_a == 9)
     {
-        int row_index_full_of_stars = rowcheck(board);
-        if (row_index_full_of_stars != 0)
-        {
-            for (int j = 0; j < 9; j++)
-            {
-                board[row_index_full_of_stars][j] = ' ';
-            }
-            score += 18;
-        }
-        int col_index_full_of_stars = colcheck(board);
-        if (col_index_full_of_stars != 0)
-        {
-            for (int i = 0; i < 9; i++)
-            {
-                board[i][col_index_full_of_stars] = ' ';
-            }
-            score += 18;
-        }
-        if (boxcheck(board) != 0)
-        {
-            for (int i = boxindexes[0]; i < boxindexes[0] + 3; i++)
-            {
-                for (int j = boxindexes[1]; j < boxindexes[1] + 3; j++)
-                {
-                    board[i][j] = ' ';
-                }
-            }
-            score += 24;
-        }
-        if (rowcheck(board) == 0 || colcheck(board) == 0)
-        {
-            score += 4;
-        }
-        if (checkgameover(board))
-        {
-            system("cls");
-            printf("Game over!");
-            printf("Your score : (%d)", score);
-        }
+        updatethegrid(board);
         if (board[y][x] == ' ' && board[y][x + 1] == ' ' && board[y][x + 2] == ' ' && board[y][x + 3] == ' ')
         {
             board[y][x] = '*';
@@ -1356,45 +1055,8 @@ void initializebox10(char board[9][9])
     int x = 0, y = 0;
     if (global_a == 10)
     {
-        int row_index_full_of_stars = rowcheck(board);
-        if (row_index_full_of_stars != 0)
-        {
-            for (int j = 0; j < 9; j++)
-            {
-                board[row_index_full_of_stars][j] = ' ';
-            }
-            score += 18;
-        }
-        int col_index_full_of_stars = colcheck(board);
-        if (col_index_full_of_stars != 0)
-        {
-            for (int i = 0; i < 9; i++)
-            {
-                board[i][col_index_full_of_stars] = ' ';
-            }
-            score += 18;
-        }
-        if (boxcheck(board) != 0)
-        {
-            for (int i = boxindexes[0]; i < boxindexes[0] + 3; i++)
-            {
-                for (int j = boxindexes[1]; j < boxindexes[1] + 3; j++)
-                {
-                    board[i][j] = ' ';
-                }
-            }
-            score += 24;
-        }
-        if (rowcheck(board) == 0 || colcheck(board) == 0)
-        {
-            score += 4;
-        }
-        if (checkgameover(board))
-        {
-            system("cls");
-            printf("Game over!");
-            printf("Your score : (%d)", score);
-        }
+        updatethegrid(board);
+
         if (board[y][x] == ' ' && board[y][x + 1] == ' ' && board[y][x + 2] == ' ')
         {
             board[y][x] = '*';
@@ -1502,20 +1164,26 @@ void move(char board[9][9])
 }
 int main()
 {
-    printf("GAME INSTRUCTIONS\n\n");
-    printf("The random 3 shapes of stars will appear select any one of them\n");
-    printf("Now move the arrow keys the board/grid will be displayed and the shape you selected can be moved using arrow keys (they will always start from the top-left corner\n");
-    printf("Please be patient with the arrow keys donot hold the arrow key\n");
-    printf("Now find the place where you want to place the shape and press space bar\n");
-    printf("The game will end once there is no place for the new shape (in the top left corner)\n\n");
+    printf("\x1B[34m\x1B[1m GAME INSTRUCTIONS\n\n");
 
-    printf("The score will be added once you placed the stars in the grid according to the no of stars in the shape if the shape has 5 stars the score will be added score + 5\n");
-    printf("Moreover, if you complete the grid's row or column the score will be added: score + 18 and if you  complete any of the 3*3 blue highlighted grids the score will be: score + 18");
+    printf("\x1B[32m-->The random 3 shapes of stars will appear select any one of them\n");
+    printf("-->Now move the arrow keys the board/grid will be displayed and the shape you selected can be moved using arrow keys (they will always start from the top-left corner\n");
+    printf("-->Please be patient with the arrow keys donot hold the arrow key\n");
+    printf("-->Now find the place where you want to place the shape and press space bar\n");
+    printf("-->The game will end once there is no place for the new shape (in the top left corner)\n\n");
+
+    printf("-->The score will be added once you placed the stars in the grid according to the no of stars in the shape\nif the shape has 5 stars the score will be added score + 5\n");
+    printf("-->Moreover, if you complete the grid's row or column the score will be added: score + 18 and\n if you  complete any of the 3*3 blue highlighted grids the score will be: score + 18\n and that completed row, column, or 3*3 grid will be removed with stars\n\n\x1B[0m");
+
+    printf("\x1B[34m**Tips to score the maximum\n\n\x1B[0m");
+
+    printf("\x1B[32m**start placing the shapes in the bottom right corner\n");
+    printf("**Avoid making the horizontal lines in the corner and vertical lines in the left side\n");
+    printf("**Try to make 3*3 boxes of instead of vertical and horizontal lines it also has maximum score (24)\n\n\x1B[0m");
+
     char start;
-     printf("press enter key to continue");
-     scanf(" %c", &start);
-
-    
+    printf("\x1B[34mpress any key and then enter to continue\n\n\x1B[0m");
+    scanf(" %c", &start);
 
     srand(time(NULL));
 
