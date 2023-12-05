@@ -65,27 +65,72 @@ void box8()
     printf("   * \n");
     printf("     \n\n");
 }
-
 void box9()
 {
     printf("        \n");
     printf("* * * * \n");
     printf("        \n\n");
 }
-
 void box10()
 {
     printf("      \n");
     printf("* * * \n");
     printf("      \n\n");
 }
-
+void box11()
+{
+    printf("* *\n");
+    printf("* *\n");
+    printf("      \n\n");
+}
+void box12()
+{
+    printf("* *\n");
+    printf("  * *\n");
+    printf("      \n\n");
+}
+void box13()
+{
+    printf("*  \n");
+    printf("* *  \n");
+    printf("  *   \n\n");
+}
+void box14()
+{
+    printf("  * \n");
+    printf("* *  \n");
+    printf("  *   \n\n");
+}
+void box15()
+{
+    printf("* * \n");
+    printf("  *  \n");
+    printf("  *   \n\n");
+}
+void box16()
+{
+    printf("*\n");
+    printf("* *\n");
+    printf("*\n\n");
+}
+void box17()
+{
+    printf("* *\n");
+    printf("*\n");
+    printf("*\n\n");
+}
+void box18()
+{
+    printf("*\n");
+    printf("* *\n");
+    printf("\n\n");
+}
 void rnum()
 {
     int i = 0;
     while (i < 3)
     {
-        int temp = rand() % 10 + 1;
+        int temp = rand() % 18 + 1;
         int j;
         for (j = 0; j < i; j++)
         {
@@ -144,6 +189,26 @@ void randshp()
         case 10:
             printf("10\n");
             box10();
+            break;
+        case 11:
+            printf("10\n");
+            box11();
+            break;
+        case 12:
+            printf("10\n");
+            box11();
+            break;
+        case 13:
+            printf("10\n");
+            box11();
+            break;
+        case 14:
+            printf("10\n");
+            box14();
+            break;
+        case 15:
+            printf("10\n");
+            box15();
             break;
         default:
             break;
@@ -217,6 +282,26 @@ int selectedbox()
         case 10:
             printf("You selected %d box\n", global_a);
             box10();
+            break;
+        case 11:
+            printf("You selected %d box\n", global_a);
+            box11();
+            break;
+        case 12:
+            printf("You selected %d box\n", global_a);
+            box12();
+            break;
+        case 13:
+            printf("You selected %d box\n", global_a);
+            box13();
+            break;
+        case 14:
+            printf("You selected %d box\n", global_a);
+            box14();
+            break;
+        case 15:
+            printf("You selected %d box\n", global_a);
+            box15();
             break;
         default:
             printf("Invalid selection\n");
@@ -1119,6 +1204,590 @@ void initializebox10(char board[9][9])
         }
     }
 }
+
+void initializebox11(char board[9][9])
+{
+    int x = 0, y = 0;
+    if (global_a == 11)
+    {
+        updatethegrid(board);
+        if (board[y][x] == ' ' && board[y][x + 1] == ' ' && board[y + 1][x] == ' ' && board[y + 1][x + 1] == ' ')
+        {
+            board[y][x] = '*';
+            board[y][x + 1] = '*';
+            board[y + 1][x] = '*';
+            board[y + 1][x + 1] = '*';
+        }
+        int space = 0;
+        printBoard(board);
+        while (space == 0)
+        {
+            if (_kbhit())
+            {
+                board[y][x] = ' ';
+                board[y][x + 1] = ' ';
+                board[y + 1][x] = ' ';
+                board[y + 1][x + 1] = ' ';
+                space = 0;
+
+                int tempX = x;
+                int tempY = y;
+                switch (_getch())
+                {
+                case 72: // Up Arrow Key
+                    if (tempY > 0)
+                        tempY--;
+                    break;
+                case 80: // Down Arrow Key
+                    if (tempY < 8)
+                        tempY++;
+                    break;
+                case 75: // Left Arrow Key
+                    if (tempX > 0)
+                        tempX--;
+                    break;
+                case 77: // Right Arrow Key
+                    if (tempX < 8)
+                        tempX++;
+                    break;
+                case 32:
+                    space++;
+                    break;
+                default:
+                    break;
+                }
+                if (board[tempY][tempX] == ' ' && board[tempY][tempX + 1] == ' ' && board[tempY + 1][tempX] == ' ' && board[tempY + 1][tempX + 1] == ' ')
+                {
+                    x = tempX;
+                    y = tempY;
+                    board[y][x] = '*';
+                    board[y][x + 1] = '*';
+                    board[y + 1][x] = '*';
+                    board[y + 1][x + 1] = '*';
+                    printBoard(board);
+                }
+                else
+                {
+                    board[y][x] = '*';
+                    board[y][x + 1] = '*';
+                    board[y + 1][x] = '*';
+                    board[y + 1][x + 1] = '*';
+                }
+            }
+        }
+    }
+}
+void initializebox12(char board[9][9])
+{
+    int x = 0, y = 0;
+    if (global_a == 12)
+    {
+        updatethegrid(board);
+
+        if (board[y][x] == ' ' && board[y][x + 1] == ' ' && board[y + 1][x + 1] == ' ' && board[y + 1][x + 2] == ' ')
+        {
+            board[y][x] = '*';
+            board[y][x + 1] = '*';
+            board[y + 1][x + 1] = '*';
+            board[y + 1][x + 2] = '*';
+        }
+        int space = 0;
+        printBoard(board);
+        while (space == 0)
+        {
+            if (_kbhit())
+            {
+                board[y][x] = ' ';
+                board[y][x + 1] = ' ';
+                board[y + 1][x + 1] = ' ';
+                board[y + 1][x + 2] = ' ';
+                space = 0;
+
+                int tempX = x;
+                int tempY = y;
+                switch (_getch())
+                {
+                case 72: // Up Arrow Key
+                    if (tempY > 0)
+                        tempY--;
+                    break;
+                case 80: // Down Arrow Key
+                    if (tempY < 8)
+                        tempY++;
+                    break;
+                case 75: // Left Arrow Key
+                    if (tempX > 0)
+                        tempX--;
+                    break;
+                case 77: // Right Arrow Key
+                    if (tempX < 7)
+                        tempX++;
+                    break;
+                case 32:
+                    space++;
+                    break;
+                default:
+                    break;
+                }
+                if (board[tempY][tempX] == ' ' && board[tempY][tempX + 1] == ' ' && board[tempY + 1][tempX + 1] == ' ' && board[tempY + 1][tempX + 2] == ' ')
+                {
+                    x = tempX;
+                    y = tempY;
+                    board[y][x] = '*';
+                    board[y][x + 1] = '*';
+                    board[y + 1][x + 1] = '*';
+                    board[y + 1][x + 2] = '*';
+                    printBoard(board);
+                }
+                else
+                {
+                    board[y][x] = '*';
+                    board[y][x + 1] = '*';
+                    board[y + 1][x + 1] = '*';
+                    board[y + 1][x + 2] = '*';
+                }
+            }
+        }
+    }
+}
+void initializebox13(char board[9][9])
+{
+    int x = 0, y = 0;
+    if (global_a == 13)
+    {
+        updatethegrid(board);
+
+        if (board[y][x] == ' ' && board[y + 1][x] == ' ' && board[y + 1][x + 1] == ' ' && board[y + 2][x + 1] == ' ')
+        {
+            board[y][x] = '*';
+            board[y + 1][x] = '*';
+            board[y + 1][x + 1] = '*';
+            board[y + 2][x + 1] = '*';
+        }
+        int space = 0;
+        printBoard(board);
+        while (space == 0)
+        {
+            if (_kbhit())
+            {
+                board[y][x] = ' ';
+                board[y + 1][x] = ' ';
+                board[y + 1][x + 1] = ' ';
+                board[y + 2][x + 1] = ' ';
+                space = 0;
+
+                int tempX = x;
+                int tempY = y;
+                switch (_getch())
+                {
+                case 72: // Up Arrow Key
+                    if (tempY > 0)
+                        tempY--;
+                    break;
+                case 80: // Down Arrow Key
+                    if (tempY < 7)
+                        tempY++;
+                    break;
+                case 75: // Left Arrow Key
+                    if (tempX > 0)
+                        tempX--;
+                    break;
+                case 77: // Right Arrow Key
+                    if (tempX < 8)
+                        tempX++;
+                    break;
+                case 32:
+                    space++;
+                    break;
+                default:
+                    break;
+                }
+                if (board[tempY][tempX] == ' ' && board[tempY + 1][tempX] == ' ' && board[tempY + 1][tempX + 1] == ' ' && board[tempY + 2][tempX + 1] == ' ')
+                {
+                    x = tempX;
+                    y = tempY;
+                    board[y][x] = '*';
+                    board[y + 1][x] = '*';
+                    board[y + 1][x + 1] = '*';
+                    board[y + 2][x + 1] = '*';
+                    printBoard(board);
+                }
+                else
+                {
+                    board[y][x] = '*';
+                    board[y + 1][x] = '*';
+                    board[y + 1][x + 1] = '*';
+                    board[y + 2][x + 1] = '*';
+                }
+            }
+        }
+    }
+}
+void initializebox14(char board[9][9])
+{
+    int x = 0, y = 0;
+    if (global_a == 14)
+    {
+        updatethegrid(board);
+
+        if (board[y][x + 1] == ' ' && board[y + 1][x] == ' ' && board[y + 1][x + 1] == ' ' && board[y + 2][x + 1] == ' ')
+        {
+            board[y][x + 1] = '*';
+            board[y + 1][x] = '*';
+            board[y + 1][x + 1] = '*';
+            board[y + 2][x + 1] = '*';
+        }
+        int space = 0;
+        printBoard(board);
+        while (space == 0)
+        {
+            if (_kbhit())
+            {
+                board[y][x + 1] = ' ';
+                board[y + 1][x] = ' ';
+                board[y + 1][x + 1] = ' ';
+                board[y + 2][x + 1] = ' ';
+                space = 0;
+
+                int tempX = x;
+                int tempY = y;
+                switch (_getch())
+                {
+                case 72: // Up Arrow Key
+                    if (tempY > 0)
+                        tempY--;
+                    break;
+                case 80: // Down Arrow Key
+                    if (tempY < 7)
+                        tempY++;
+                    break;
+                case 75: // Left Arrow Key
+                    if (tempX > 0)
+                        tempX--;
+                    break;
+                case 77: // Right Arrow Key
+                    if (tempX < 8)
+                        tempX++;
+                    break;
+                case 32:
+                    space++;
+                    break;
+                default:
+                    break;
+                }
+                if (board[tempY][tempX + 1] == ' ' && board[tempY + 1][tempX] == ' ' && board[tempY + 1][tempX + 1] == ' ' && board[tempY + 2][tempX + 1] == ' ')
+                {
+                    x = tempX;
+                    y = tempY;
+                    board[y][x + 1] = '*';
+                    board[y + 1][x] = '*';
+                    board[y + 1][x + 1] = '*';
+                    board[y + 2][x + 1] = '*';
+                    printBoard(board);
+                }
+                else
+                {
+                    board[y][x + 1] = '*';
+                    board[y + 1][x] = '*';
+                    board[y + 1][x + 1] = '*';
+                    board[y + 2][x + 1] = '*';
+                }
+            }
+        }
+    }
+}
+void initializebox15(char board[9][9])
+{
+    int x = 0, y = 0;
+    if (global_a == 15)
+    {
+        updatethegrid(board);
+
+        if (board[y][x] == ' ' && board[y][x + 1] == ' ' && board[y + 1][x + 1] == ' ' && board[y + 2][x + 1] == ' ')
+        {
+            board[y][x] = '*';
+            board[y][x + 1] = '*';
+            board[y + 1][x + 1] = '*';
+            board[y + 2][x + 1] = '*';
+        }
+        int space = 0;
+        printBoard(board);
+        while (space == 0)
+        {
+            if (_kbhit())
+            {
+                board[y][x] = ' ';
+                board[y][x + 1] = ' ';
+                board[y + 1][x + 1] = ' ';
+                board[y + 2][x + 1] = ' ';
+                space = 0;
+
+                int tempX = x;
+                int tempY = y;
+                switch (_getch())
+                {
+                case 72: // Up Arrow Key
+                    if (tempY > 0)
+                        tempY--;
+                    break;
+                case 80: // Down Arrow Key
+                    if (tempY < 7)
+                        tempY++;
+                    break;
+                case 75: // Left Arrow Key
+                    if (tempX > 0)
+                        tempX--;
+                    break;
+                case 77: // Right Arrow Key
+                    if (tempX < 8)
+                        tempX++;
+                    break;
+                case 32:
+                    space++;
+                    break;
+                default:
+                    break;
+                }
+                if (board[tempY][tempX] == ' ' && board[tempY][tempX + 1] == ' ' && board[tempY + 1][tempX + 1] == ' ' && board[tempY + 2][tempX + 1] == ' ')
+                {
+                    x = tempX;
+                    y = tempY;
+                    board[y][x] = '*';
+                    board[y][x + 1] = '*';
+                    board[y + 1][x + 1] = '*';
+                    board[y + 2][x + 1] = '*';
+                    printBoard(board);
+                }
+                else
+                {
+                    board[y][x] = '*';
+                    board[y][x + 1] = '*';
+                    board[y + 1][x + 1] = '*';
+                    board[y + 2][x + 1] = '*';
+                }
+            }
+        }
+    }
+}
+void initializebox16(char board[9][9])
+{
+    int x = 0, y = 0;
+    if (global_a == 16)
+    {
+        updatethegrid(board);
+
+        if (board[y][x] == ' ' && board[y][x + 1] == ' ' && board[y + 1][x] == ' ' && board[y + 2][x] == ' ')
+        {
+            board[y][x] = '*';
+            board[y][x + 1] = '*';
+            board[y + 1][x] = '*';
+            board[y + 2][x] = '*';
+        }
+        int space = 0;
+        printBoard(board);
+        while (space == 0)
+        {
+            if (_kbhit())
+            {
+                board[y][x] = ' ';
+                board[y][x + 1] = ' ';
+                board[y + 1][x] = ' ';
+                board[y + 2][x] = ' ';
+                space = 0;
+
+                int tempX = x;
+                int tempY = y;
+                switch (_getch())
+                {
+                case 72: // Up Arrow Key
+                    if (tempY > 0)
+                        tempY--;
+                    break;
+                case 80: // Down Arrow Key
+                    if (tempY < 7)
+                        tempY++;
+                    break;
+                case 75: // Left Arrow Key
+                    if (tempX > 0)
+                        tempX--;
+                    break;
+                case 77: // Right Arrow Key
+                    if (tempX < 8)
+                        tempX++;
+                    break;
+                case 32:
+                    space++;
+                    break;
+                default:
+                    break;
+                }
+                if (board[tempY][tempX] == ' ' && board[tempY][tempX + 1] == ' ' && board[tempY + 1][tempX] == ' ' && board[tempY + 2][tempX] == ' ')
+                {
+                    x = tempX;
+                    y = tempY;
+                    board[y][x] = '*';
+                    board[y][x + 1] = '*';
+                    board[y + 1][x] = '*';
+                    board[y + 2][x] = '*';
+                    printBoard(board);
+                }
+                else
+                {
+                    board[y][x] = '*';
+                    board[y][x + 1] = '*';
+                    board[y + 1][x] = '*';
+                    board[y + 2][x] = '*';
+                }
+            }
+        }
+    }
+}
+void initializebox17(char board[9][9])
+{
+    int x = 0, y = 0;
+    if (global_a == 17)
+    {
+        updatethegrid(board);
+
+        if (board[y][x] == ' ' && board[y][x + 1] == ' ' && board[y + 1][x + 1] == ' ' && board[y + 2][x + 1] == ' ')
+        {
+            board[y][x] = '*';
+            board[y][x + 1] = '*';
+            board[y + 1][x + 1] = '*';
+            board[y + 2][x + 1] = '*';
+        }
+        int space = 0;
+        printBoard(board);
+        while (space == 0)
+        {
+            if (_kbhit())
+            {
+                board[y][x] = ' ';
+                board[y][x + 1] = ' ';
+                board[y + 1][x + 1] = ' ';
+                board[y + 2][x + 1] = ' ';
+                space = 0;
+
+                int tempX = x;
+                int tempY = y;
+                switch (_getch())
+                {
+                case 72: // Up Arrow Key
+                    if (tempY > 0)
+                        tempY--;
+                    break;
+                case 80: // Down Arrow Key
+                    if (tempY < 7)
+                        tempY++;
+                    break;
+                case 75: // Left Arrow Key
+                    if (tempX > 0)
+                        tempX--;
+                    break;
+                case 77: // Right Arrow Key
+                    if (tempX < 8)
+                        tempX++;
+                    break;
+                case 32:
+                    space++;
+                    break;
+                default:
+                    break;
+                }
+                if (board[tempY][tempX] == ' ' && board[tempY][tempX + 1] == ' ' && board[tempY + 1][tempX + 1] == ' ' && board[tempY + 2][tempX + 1] == ' ')
+                {
+                    x = tempX;
+                    y = tempY;
+                    board[y][x] = '*';
+                    board[y][x + 1] = '*';
+                    board[y + 1][x + 1] = '*';
+                    board[y + 2][x + 1] = '*';
+                    printBoard(board);
+                }
+                else
+                {
+                    board[y][x] = '*';
+                    board[y][x + 1] = '*';
+                    board[y + 1][x + 1] = '*';
+                    board[y + 2][x + 1] = '*';
+                }
+            }
+        }
+    }
+}
+void initializebox18(char board[9][9])
+{
+    int x = 0, y = 0;
+    if (global_a == 18)
+    {
+        updatethegrid(board);
+
+        // check if the spaces for the pattern are empty
+        if (board[y][x] == ' ' && board[y + 1][x] == ' ' && board[y + 1][x + 1] == ' ')
+        {
+            board[y][x] = '*';
+            board[y + 1][x] = '*';
+            board[y + 1][x + 1] = '*';
+        }
+        int space = 0;
+        printBoard(board);
+        while (space == 0)
+        {
+            if (_kbhit())
+            {
+                // clear current pattern
+                board[y][x] = ' ';
+                board[y + 1][x] = ' ';
+                board[y + 1][x + 1] = ' ';
+                space = 0;
+
+                int tempX = x;
+                int tempY = y;
+                switch (_getch())
+                {
+                case 72: // Up Arrow Key
+                    if (tempY > 0)
+                        tempY--;
+                    break;
+                case 80: // Down Arrow Key
+                    if (tempY < 7)
+                        tempY++;
+                    break;
+                case 75: // Left Arrow Key
+                    if (tempX > 0)
+                        tempX--;
+                    break;
+                case 77: // Right Arrow Key
+                    if (tempX < 8)
+                        tempX++;
+                    break;
+                case 32:
+                    space++;
+                    break;
+                default:
+                    break;
+                }
+                // check if the spaces for the new position are empty
+                if (board[tempY][tempX] == ' ' && board[tempY + 1][tempX] == ' ' && board[tempY + 1][tempX + 1] == ' ')
+                {
+                    x = tempX;
+                    y = tempY;
+                    board[y][x] = '*';
+                    board[y + 1][x] = '*';
+                    board[y + 1][x + 1] = '*';
+                    printBoard(board);
+                }
+                else
+                {
+                    // revert to old position if new position is not empty
+                    board[y][x] = '*';
+                    board[y + 1][x] = '*';
+                    board[y + 1][x + 1] = '*';
+                }
+            }
+        }
+    }
+}
 void move(char board[9][9])
 {
     if (global_a == 1)
@@ -1161,6 +1830,38 @@ void move(char board[9][9])
     {
         initializebox10(board);
     }
+    else if (global_a == 11)
+    {
+        initializebox10(board);
+    }
+    else if (global_a == 12)
+    {
+        initializebox10(board);
+    }
+    else if (global_a == 13)
+    {
+        initializebox10(board);
+    }
+    else if (global_a == 14)
+    {
+        initializebox10(board);
+    }
+    else if (global_a == 15)
+    {
+        initializebox10(board);
+    }
+    else if (global_a == 16)
+    {
+        initializebox10(board);
+    }
+    else if (global_a == 17)
+    {
+        initializebox10(board);
+    }
+    else if (global_a == 18)
+    {
+        initializebox10(board);
+    }
 }
 int main()
 {
@@ -1172,7 +1873,7 @@ int main()
     printf("-->Now find the place where you want to place the shape and press space bar\n");
     printf("-->The game will end once there is no place for the new shape (in the top left corner)\n\n");
 
-    printf("-->The score will be added once you placed the stars in the grid according to the no of stars in the shape\nif the shape has 5 stars the score will be added score + 5\n");
+    printf("-->The score will be added once you placed the shape score+4 \n");
     printf("-->Moreover, if you complete the grid's row or column the score will be added: score + 18 and\n if you  complete any of the 3*3 blue highlighted grids the score will be: score + 18\n and that completed row, column, or 3*3 grid will be removed with stars\n\n\x1B[0m");
 
     printf("\x1B[34m**Tips to score the maximum\n\n\x1B[0m");
